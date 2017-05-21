@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Création d'un mini jeu de combat au tour par tour en JavaScript.'" />
+    <meta name="autor" content="Clémence Laffont" />
+    <title>combatGame</title>
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="icon" type="image/png" href="Amiral.png" />
+</head>
+
+<body>
+    <header>
+        <section class="barreVie">
+            <div id="aVie">250</div>
+        </section>
+        <section id="message">
+            <img src="Amiral.png" alt="photo de l'amiral du vaisseau" />
+            <p>Ennemie en approche. J'attend vos instructions mon commandant.</p>
+        </section>
+        <section class="barreVie">
+            <div id="eVie">250</div>
+        </section>
+    </header>
+    <main>
+        <img src="vaisseau.png" alt="vaisseau mere allier" id="vAllier" />
+        <img src="alien.png" alt="vaisseau ennemie" id="vEnnemie" />
+
+        <img src="helper.png" alt="Chasseur alliers" class="chasseur" id="chasseur1" />
+        <img src="helper.png" alt="Chasseur alliers" class="chasseur" id="chasseur2" />
+        <img src="helper.png" alt="Chasseur alliers" class="chasseur" id="chasseur3" />
+        <img src="helper.png" alt="Chasseur alliers" class="chasseur" id="chasseur4" />
+
+        <div id="piuAllierD">
+            <div id="piuAllierA"></div>
+        </div>
+        <div id="piuEnnemieD">
+            <div id="piuEnnemieA"></div>
+        </div>
+
+        <div id="piuChasseur1">
+            <div class="piuChasseur"></div>
+        </div>
+        <div id="piuChasseur2">
+            <div class="piuChasseur"></div>
+        </div>
+        <div id="piuChasseur3">
+            <div class="piuChasseur"></div>
+        </div>
+        <div id="piuChasseur4">
+            <div class="piuChasseur"></div>
+        </div>
+
+        <div id="boumEnnemie"></div>
+        <div id="boumAllier"></div>
+
+    </main>
+    <footer>
+        <dl>
+            <dt>Tire Plasmas</dt>
+            <dd>Envois une decharge plasma en direction de l'ennemie. Il y a 1 chance sur 10 que le tire rate et passe a coté du vaisseau ennemie. Si touché peut faire entre 10 et 20 points de dégas.</dd>
+            <dt>Rayon à Ennergie</dt>
+            <dd>Envoie une decharge ennergetique en direction de l'ennemie. Il y a une chance sur 5 que l'attaque n'ai aucun effet sur l'ennemie. Si touché empeche l'ennemie d'attqué pendant un tour. Met 1 tours a se recharger.</dd>
+        </dl>
+        <section>
+            <button class="commande" id="usePlasma">
+                <p>Tire Plasma</p>
+                <div></div>
+            </button>
+            <button class="commande" id="useEnnergie">
+                <p>Rayon à Ennergie</p>
+                <div></div>
+            </button>
+            <button class="commande" id="useBouclier">
+                <p>Activation du Bouclier</p>
+                <div></div>
+            </button>
+            <button class="commande" id="useChasseur">
+                <p>Envoyer un Chasseur</p>
+                <div></div>
+            </button>
+        </section>
+        <dl>
+            <dt>Activation du Bouclier</dt>
+            <dd>Ative un bouclier protecteur autour du vaisseau mere. Vous rend invulnérable pendnat le prochaine tour de l'ennemie. Met 1 tour a se recharger</dd>
+            <dt>Envoyer un Chasseur</dt>
+            <dd>Fait apparaitre un chasseur allier a coté du vaisseau mere. Il tirera un coup de blaster a chaque tour tant qu'il n'a pas été détruit effectuant entre 3 et 8 points de dégas a chaque fois. Il vous en reste <span>4</span> dans votre hangar.</dd>
+        </dl>
+    </footer>
+
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>

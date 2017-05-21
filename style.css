@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css?family=VT323');
+body {
+    width: 1200px;
+    height: 600px;
+    margin: 10px auto;
+    background-image: url(fond.jpg);
+    background-size: 1200px 600px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 10px solid black;
+    display: flex;
+    flex-direction: column;
+    font-family: 'VT323', monospace;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.barreVie {
+    height: 30px;
+    width: 250px;
+    border: 5px solid black;
+    background: grey;
+}
+
+#aVie,
+#eVie {
+    height: 30px;
+    width: 250px;
+    background: red;
+}
+
+#message {
+    width: 500px;
+    height: 80px;
+    margin: 10px;
+    padding: 10px;
+    border: 5px solid black;
+    background: grey;
+    display: flex;
+    flex-direction: row;
+}
+
+#message img {
+    height: 80px;
+}
+
+#message p {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.3em;
+    padding: 10px;
+    margin: 0px;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+footer section {
+    width: 300px;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+footer dl {
+    width: 400px;
+    font-size: 0.9em;
+    background: grey;
+}
+
+.commande {
+    width: 139px;
+    margin: 5px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0px;
+}
+
+.commande div {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: green;
+}
+
+.commande p {
+    padding: 0px;
+    width: 100px;
+}
+
+main {
+    flex-grow: 1;
+    position: relative;
+}
+
+
+/*--------------------------------------*/
+
+@keyframes piuAllierD {
+    0% {}
+    100% {
+        left: 1000px;
+    }
+}
+
+@keyframes piuAllierA {
+    0% {
+        background-position: 0px 0px;
+    }
+    30% {
+        background-position: -30px 0px;
+    }
+    60% {
+        background-position: -60px 0px;
+    }
+    100% {
+        background-position: -60px 0px;
+    }
+}
+
+@keyframes piuChasseurA {
+    0% {
+        background-position: 0px 0px;
+    }
+    30% {
+        background-position: -15px 0px;
+    }
+    60% {
+        background-position: -30px 0px;
+    }
+    100% {
+        background-position: -30px 0px;
+    }
+}
+
+@keyframes piuEnnemieD {
+    0% {}
+    30% {
+        left: 955px;
+    }
+    100% {
+        left: 145px;
+    }
+}
+
+@keyframes piuEnnemieA {
+    0% {
+        background-position: 50px 0px;
+        width: 35px;
+    }
+    10% {
+        background-position: 95px 0px;
+        width: 35px;
+    }
+    20% {
+        background-position: 140px 0px;
+        width: 35px;
+    }
+    30% {
+        background-position: 200px 0px;
+        width: 50px;
+    }
+    40% {
+        background-position: 250px 0px;
+    }
+    50% {
+        background-position: 300px 0px;
+    }
+}
+
+@keyframes grosBoum {
+    0% {
+        background-position: 0px 0px;
+    }
+    5% {
+        background-position: -100px 0px;
+    }
+    10% {
+        background-position: -200px 0px;
+    }
+    15% {
+        background-position: -300px 0px;
+    }
+    20% {
+        background-position: -400px 0px;
+    }
+    25% {
+        background-position: -500px 0px;
+        opacity: 1;
+    }
+    30% {
+        background-position: -500px 0px;
+        opacity: 0.5;
+    }
+    40% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+#vAllier {
+    transform: rotate(90deg);
+    width: 100px;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+}
+
+#vEnnemie {
+    transform: rotate(270deg);
+    width: 270px;
+    position: absolute;
+    left: 880px;
+    top: 10px;
+}
+
+.chasseur {
+    transform: rotate(90deg);
+    width: 30px;
+    position: absolute;
+}
+
+#chasseur1 {
+    left: 200px;
+    top: 50px;
+    display: none;
+}
+
+#chasseur2 {
+    left: 200px;
+    top: 210px;
+    display: none;
+}
+
+#chasseur3 {
+    left: 260px;
+    top: 90px;
+    display: none;
+}
+
+#chasseur4 {
+    left: 260px;
+    top: 170px;
+    display: none;
+}
+
+#piuAllierD {
+    position: absolute;
+    left: 173px;
+    top: 114px;
+    animation: piuAllierD ease-in 1s;
+    z-index: -1;
+    display: none;
+}
+
+#piuAllierA {
+    background: url(piu.png);
+    width: 40px;
+    height: 70px;
+    background-size: 195px;
+    background-position: 0px 0px;
+    animation: piuAllierA step-start 1s;
+}
+
+#piuEnnemieD {
+    position: absolute;
+    left: 950px;
+    top: 120px;
+    animation: piuEnnemieD ease-in 1s;
+    z-index: -1;
+    display: none;
+}
+
+#piuEnnemieA {
+    background: url(piue.png);
+    width: 50px;
+    height: 50px;
+    background-size: 300px;
+    background-position: 0px 0px;
+    animation: piuEnnemieA step-start 1s;
+}
+
+.piuChasseur {
+    background: url(piu.png);
+    width: 15px;
+    height: 30px;
+    background-size: 90px;
+    background-position: 0px 0px;
+    animation: piuChasseurA step-start 1s;
+}
+
+#piuChasseur1 {
+    position: absolute;
+    left: 205px;
+    top: 50px;
+    animation: piuAllierD ease-in 1s;
+    z-index: -1;
+    display: none;
+}
+
+#piuChasseur2 {
+    position: absolute;
+    left: 205px;
+    top: 210px;
+    animation: piuAllierD ease-in 1s;
+    z-index: -1;
+    display: none;
+}
+
+#piuChasseur3 {
+    position: absolute;
+    left: 265px;
+    top: 90px;
+    animation: piuAllierD ease-in 1s;
+    z-index: -1;
+    display: none;
+}
+
+#piuChasseur4 {
+    position: absolute;
+    left: 265px;
+    top: 170px;
+    animation: piuAllierD ease-in 1s;
+    z-index: -1;
+    display: none;
+}
+
+#boumEnnemie {
+    background-image: url(boum.png);
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 930px;
+    top: 95px;
+    background-position: 0px 0px;
+    background-size: 600px;
+    opacity: 1;
+    animation: grosBoum step-end 1.5s;
+    display: none;
+}
+
+#boumAllier {
+    background-image: url(boum.png);
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 130px;
+    top: 95px;
+    background-position: 0px 0px;
+    background-size: 600px;
+    opacity: 1;
+    animation: grosBoum step-end 1.5s;
+    display: none;
+}
