@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=VT323');
+@import url('https://fonts.googleapis.com/css?family=Kumar+One');
 body {
     width: 1200px;
     height: 600px;
@@ -105,6 +106,18 @@ main {
     position: relative;
 }
 
+h1 {
+    font-family: 'Kumar One', cursive;
+    font-size: 5em;
+    position: absolute;
+    color: white;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    display: none;
+    animation: apparition 0.5s ease-in;
+}
+
 
 /*--------------------------------------*/
 
@@ -159,30 +172,41 @@ main {
     0% {
         background-position: 50px 0px;
         width: 35px;
+        opacity: 1;
     }
     10% {
         background-position: 95px 0px;
         width: 35px;
+        opacity: 1;
     }
     20% {
         background-position: 140px 0px;
         width: 35px;
+        opacity: 1;
     }
     30% {
         background-position: 200px 0px;
         width: 50px;
+        opacity: 1;
     }
     40% {
         background-position: 250px 0px;
+        opacity: 1;
     }
     50% {
         background-position: 300px 0px;
+        opacity: 1;
+    }
+    100% {
+        background-position: 300px 0px;
+        opacity: 1;
     }
 }
 
 @keyframes grosBoum {
     0% {
         background-position: 0px 0px;
+        opacity: 1;
     }
     5% {
         background-position: -100px 0px;
@@ -212,6 +236,15 @@ main {
     }
 }
 
+@keyframes apparition {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 #vAllier {
     transform: rotate(90deg);
     width: 100px;
@@ -232,6 +265,7 @@ main {
     transform: rotate(90deg);
     width: 30px;
     position: absolute;
+    animation: apparition 0.5s linear;
 }
 
 #chasseur1 {
@@ -292,6 +326,7 @@ main {
     background-size: 300px;
     background-position: 0px 0px;
     animation: piuEnnemieA step-start 1s;
+    opacity: 0;
 }
 
 .piuChasseur {
@@ -346,9 +381,8 @@ main {
     height: 100px;
     left: 930px;
     top: 95px;
-    background-position: 0px 0px;
     background-size: 600px;
-    opacity: 1;
+    opacity: 0;
     animation: grosBoum step-end 1.5s;
     display: none;
 }
@@ -360,9 +394,20 @@ main {
     height: 100px;
     left: 130px;
     top: 95px;
-    background-position: 0px 0px;
     background-size: 600px;
-    opacity: 1;
-    animation: grosBoum step-end 1.5s;
+    opacity: 0;
+    animation: grosBoum step-end 1s;
+    display: none;
+}
+
+#bouclier {
+    background: url(shield.png);
+    width: 150px;
+    height: 150px;
+    background-size: 150px;
+    position: absolute;
+    left: 72px;
+    top: 70px;
+    animation: apparition ease-in 0.5s;
     display: none;
 }

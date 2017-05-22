@@ -8,6 +8,7 @@
     <meta name="description" content="Création d'un mini jeu de combat au tour par tour en JavaScript.'" />
     <meta name="autor" content="Clémence Laffont" />
     <title>combatGame</title>
+    <link href="https://fonts.googleapis.com/css?family=Kumar+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="icon" type="image/png" href="Amiral.png" />
@@ -27,6 +28,7 @@
         </section>
     </header>
     <main>
+        <h1></h1>
         <img src="vaisseau.png" alt="vaisseau mere allier" id="vAllier" />
         <img src="alien.png" alt="vaisseau ennemie" id="vEnnemie" />
 
@@ -58,6 +60,8 @@
         <div id="boumEnnemie"></div>
         <div id="boumAllier"></div>
 
+        <div id="bouclier"></div>
+
     </main>
     <footer>
         <dl>
@@ -88,7 +92,7 @@
             <dt>Activation du Bouclier</dt>
             <dd>Ative un bouclier protecteur autour du vaisseau mere. Vous rend invulnérable pendnat le prochaine tour de l'ennemie. Met 1 tour a se recharger</dd>
             <dt>Envoyer un Chasseur</dt>
-            <dd>Fait apparaitre un chasseur allier a coté du vaisseau mere. Il tirera un coup de blaster a chaque tour tant qu'il n'a pas été détruit effectuant entre 3 et 8 points de dégas a chaque fois. Il vous en reste <span>4</span> dans votre hangar.</dd>
+            <dd>Fait apparaitre un chasseur allier a coté du vaisseau mere. Il tirera un coup de blaster a chaque tour tant qu'il n'a pas été détruit effectuant entre 3 et 8 points de dégas a chaque fois. Il vous en reste <span id="chasseurRestant">4</span>                dans votre hangar.</dd>
         </dl>
     </footer>
 
