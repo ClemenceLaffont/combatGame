@@ -130,6 +130,7 @@ h1 {
 
 @keyframes piuAllierA {
     0% {
+        opacity: 1;
         background-position: 0px 0px;
     }
     30% {
@@ -140,11 +141,13 @@ h1 {
     }
     100% {
         background-position: -60px 0px;
+        opacity: 1;
     }
 }
 
 @keyframes piuChasseurA {
     0% {
+        opacity: 1;
         background-position: 0px 0px;
     }
     30% {
@@ -155,6 +158,7 @@ h1 {
     }
     100% {
         background-position: -30px 0px;
+        opacity: 1;
     }
 }
 
@@ -308,6 +312,7 @@ h1 {
     background-size: 195px;
     background-position: 0px 0px;
     animation: piuAllierA step-start 1s;
+    opacity: 0;
 }
 
 #piuEnnemieD {
@@ -336,6 +341,7 @@ h1 {
     background-size: 90px;
     background-position: 0px 0px;
     animation: piuChasseurA step-start 1s;
+    opacity: 0;
 }
 
 #piuChasseur1 {

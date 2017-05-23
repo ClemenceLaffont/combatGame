@@ -39,6 +39,7 @@ let allier = {
     plasma: false,
     energie: true,
     bouclier: false,
+    countBouclier: 0,
     chasseur: 4,
     boum: false,
 }
@@ -61,10 +62,15 @@ let chasseur = {
 let messages = {
     debut: "Ennemie en approche. J'attend vos instructions mon commandant.",
     Plasmas: "Armer les canons Plasma. Feu !",
+    bouclier: "Activation du bouclier !",
+    chasseur: "Faites sortir un chasseur du hangar !",
+    ennergie: "Preparez le rayon a ennergie ! Attention, Feu !",
     dammageEnnemie: "Ils ont l'aire d'avoir subit de gros dommages !",
+    ennergieEnnemie: "Voila qui devrait les ralentir un moment !",
     ennemieCantPlay: "Il semblerais que l'ennemie est encore sous l'emprise du rayon à Ennergie.",
     attacEnnemie: "L'ennemie nous attaque, accrochez vous !",
     dammageAllier: "La coque de notre vaisseau à été endommager.",
+    damageBouclier: "Le bouclier a absorbé la totalité des dégats.",
     perdu: "Adieu mon commandant, ce fut un honneur d'etre dans votre équipage.",
     gagne: "Nous avons réussi, le vaisseau ennemie est détruit !"
 }
@@ -109,22 +115,45 @@ piuAllier.addEventListener("animationend", function() {
 });
 
 boumEnnemie.addEventListener("animationend", function() {
+    console.log("boum");
     ennemie.boum = false;
-    message = messages.attacEnnemie;
     if (ennemie.pv === 0) {
         ennemie.piu = false;
         message = messages.gagne;
         gagne = true;
     } else {
         ennemie.piu = true;
+        message = messages.attacEnnemie;
     }
 });
 
 piuEnnemie.addEventListener("animationend", function() {
+    console.log("truc");
     ennemie.piu = false;
-    allier.pv -= Math.trunc((Math.random() * 10) + 10);
-    if (allier.pv <= 0) {
-        allier.pv = 0;
+    if (allier.bouclier === false) {
+        message = messages.dammageAllier;
+        allier.pv -= Math.trunc((Math.random() * 10) + 10);
+        if (allier.pv <= 0) {
+            allier.pv = 0;
+        }
+    } else {
+        let i = Math.random();
+        if (i <= 0.1) {
+            message = messages.damageBouclier;
+        } else {
+            console.log("ok");
+            if (chasseur.c1 === true) {
+                chasseur.c1 = false;
+            } else if (chasseur.c2 === true && chasseur.c1 === false) {
+                chasseur.c2 = false;
+            } else if (chasseur.c3 === true && chasseur.c2 === false) {
+                chasseur.c3 = false;
+            } else if (chasseur.c4 === true && chasseur.c3 === false) {
+                chasseur.c4 = false;
+            } else {
+                message = messages.damageBouclier;
+            }
+        }
     }
     allier.boum = true;
 });
@@ -135,11 +164,15 @@ boumAllier.addEventListener("animationend", function() {
         message = messages.perdu;
         perdu = true;
     } else {
-        message = messages.dammageAllier;
         usePlasma.disabled = false;
         useBouclier.disabled = false;
         useChasseur.disabled = false;
         useEnnergie.disabled = false;
+    }
+    if (allier.countBouclier != 0) {
+        allier.countBouclier -= 1;
+    } else if (allier.countBouclier === 0) {
+        allier.bouclier = false;
     }
 
 });
@@ -149,10 +182,21 @@ useEnnergie.addEventListener("click", function() {
 });
 
 useBouclier.addEventListener("click", function() {
+    message = messages.bouclier;
+    allier.bouclier = true;
+    allier.countBouclier = 1;
+});
 
+bouclier.addEventListener("animationend", function() {
+    ennemie.piu = true;
 });
 
 useChasseur.addEventListener("click", function() {
+    message = messages.chasseur;
+    usePlasma.disabled = true;
+    useBouclier.disabled = true;
+    useChasseur.disabled = true;
+    useEnnergie.disabled = true;
     if (chasseur.c1 === false) {
         chasseur.c1 = true;
     } else if (chasseur.c2 === false) {
@@ -166,34 +210,18 @@ useChasseur.addEventListener("click", function() {
 });
 
 chasseur1.addEventListener("animationend", function() {
-    usePlasma.disabled = true;
-    useBouclier.disabled = true;
-    useChasseur.disabled = true;
-    useEnnergie.disabled = true;
     message = messages.attacEnnemie;
     ennemie.piu = true;
 });
 chasseur2.addEventListener("animationend", function() {
-    usePlasma.disabled = true;
-    useBouclier.disabled = true;
-    useChasseur.disabled = true;
-    useEnnergie.disabled = true;
     message = messages.attacEnnemie;
     ennemie.piu = true;
 });
 chasseur3.addEventListener("animationend", function() {
-    usePlasma.disabled = true;
-    useBouclier.disabled = true;
-    useChasseur.disabled = true;
-    useEnnergie.disabled = true;
     message = messages.attacEnnemie;
     ennemie.piu = true;
 });
 chasseur4.addEventListener("animationend", function() {
-    usePlasma.disabled = true;
-    useBouclier.disabled = true;
-    useChasseur.disabled = true;
-    useEnnergie.disabled = true;
     message = messages.attacEnnemie;
     ennemie.piu = true;
 });
@@ -228,18 +256,30 @@ setInterval(function() {
         boumAllier.style.display = "block";
     } else if (allier.boum === false) {
         boumAllier.style.display = "none";
+        boumAllier.style.left = "130px"
+    }
+    if (allier.boum === true && allier.bouclier === true) {
+        boumAllier.style.left = "160px"
     }
     if (chasseur.c1 === true) {
         chasseur1.style.display = "block";
+    } else if (chasseur.c1 === false) {
+        chasseur1.style.display = "none";
     }
     if (chasseur.c2 === true) {
         chasseur2.style.display = "block";
+    } else if (chasseur.c2 === false) {
+        chasseur2.style.display = "none";
     }
     if (chasseur.c3 === true) {
         chasseur3.style.display = "block";
+    } else if (chasseur.c3 === false) {
+        chasseur3.style.display = "none";
     }
     if (chasseur.c4 === true) {
         chasseur4.style.display = "block";
+    } else if (chasseur.c4 === false) {
+        chasseur4.style.display = "none";
     }
     if (allier.chasseur === 0) {
         useChasseur.disabled = true;
@@ -270,5 +310,10 @@ setInterval(function() {
     } else if (perdu === true) {
         final.textContent = "Game Over";
         final.style.display = "block";
+    }
+    if (allier.bouclier === true) {
+        bouclier.style.display = "block";
+    } else if (allier.bouclier === false) {
+        bouclier.style.display = "none";
     }
 }, 40);
