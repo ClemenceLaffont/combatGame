@@ -249,6 +249,84 @@ h1 {
     }
 }
 
+@keyframes ennergie {
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+        background-position: 0px 0px;
+    }
+    37% {
+        opacity: 1;
+        background-position: 0px 70px;
+    }
+    44% {
+        opacity: 1;
+        background-position: 0px 140px;
+    }
+    51% {
+        opacity: 1;
+        background-position: 0px 210px;
+    }
+    58% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes backEnnergie {
+    0% {
+        background-image: url(fond.jpg);
+    }
+    15% {
+        background-image: url(fond.jpg);
+    }
+    25% {
+        background-image: none;
+    }
+    35% {
+        background-image: url(fond.jpg);
+    }
+    55% {
+        background-image: url(fond.jpg);
+    }
+    65% {
+        background-image: none;
+    }
+    75% {
+        background-image: url(fond.jpg);
+    }
+    100% {
+        background-image: url(fond.jpg);
+    }
+}
+
+@keyframes stun {
+    0% {
+        opacity: 1;
+        background-position: -1000px -250px;
+    }
+    7% {
+        background-position: 0px -250px;
+    }
+    14% {
+        background-position: -750px -250px;
+    }
+    21% {
+        background-position: -250px -250px;
+        opacity: 1;
+    }
+    28% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 #vAllier {
     transform: rotate(90deg);
     width: 100px;
@@ -414,6 +492,38 @@ h1 {
     position: absolute;
     left: 72px;
     top: 70px;
-    animation: apparition ease-in 0.5s;
+    animation: apparition ease-in 1s;
+    display: none;
+}
+
+#ennergie {
+    background: url(lightning.png);
+    width: 850px;
+    height: 70px;
+    background-size: 300px;
+    background-position: 0px 0px;
+    position: absolute;
+    left: 150px;
+    top: 110px;
+    opacity: 0;
+    animation: ennergie step-end 1s;
+    display: none;
+}
+
+.backEnnergie {
+    animation: backEnnergie ease-in 1s;
+}
+
+#stun {
+    background: url(foudre.png-original);
+    width: 200px;
+    height: 200px;
+    background-size: 1200px;
+    background-position: 0px -250px;
+    position: absolute;
+    left: 910px;
+    top: 50px;
+    opacity: 0;
+    animation: stun 2s step-end infinite;
     display: none;
 }
