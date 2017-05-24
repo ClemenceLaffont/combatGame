@@ -1,14 +1,16 @@
 "use strict";
 
-let body = document.body;
+let jeu = document.querySelector("#jeu");
 
 let usePlasma = document.querySelector("#usePlasma");
 let useEnnergie = document.querySelector("#useEnnergie");
 let useBouclier = document.querySelector("#useBouclier");
 let useChasseur = document.querySelector("#useChasseur");
 
-let pvAllier = document.querySelector("#aVie");
-let pvEnnemie = document.querySelector("#eVie");
+let pvAllier = document.querySelector("#aVie div");
+let pvEnnemie = document.querySelector("#eVie div");
+let nbpvAllier = document.querySelector("#aVie h2");
+let nbpvEnnemie = document.querySelector("#eVie h2");
 let amiral = document.querySelector("#message p");
 let final = document.querySelector("h1");
 let vAllier = document.querySelector("#vAllier");
@@ -74,6 +76,7 @@ let messages = {
     chasseur: "Faites sortir un chasseur du hangar !",
     ennergie: "Preparez le rayon a ennergie ! Attention, Feu !",
     dammageEnnemie: "Ils ont l'aire d'avoir subit de gros dommages !",
+    rate: "nous avons manqué notre cible !",
     ennergieEnnemie: "Voila qui devrait les ralentir un moment !",
     ennemieCantPlay: "Il semblerais que l'ennemie est encore sous l'emprise du rayon à Ennergie.",
     attacEnnemie: "L'ennemie nous attaque, accrochez vous !",
@@ -95,8 +98,10 @@ function enable() {
     if (allier.chasseur != 0) {
         useChasseur.disabled = false;
     }
-    if (ennemie.stun === false) {
+    if (ennemie.stun === false && ennemie.countStun === 0) {
         useEnnergie.disabled = false;
+    } else {
+        ennemie.countStun -= 1;
     }
 }
 
@@ -114,13 +119,22 @@ function tourEnnemie() {
         message = messages.attacEnnemie;
     } else {
         message = messages.ennemieCantPlay;
-        ennemie.countStun -= 1;
-        if (allier.countBouclier != 0) {
-            allier.countBouclier -= 1;
-        } else if (allier.countBouclier === 0) {
-            allier.bouclier = false;
-        }
+        verifieBouclier();
         enable();
+    }
+}
+
+function degaChasseur(lequel) {
+    if (lequel === true) {
+        ennemie.pv -= Math.trunc((Math.random() * 7) + 3);
+    }
+}
+
+function verifieBouclier() {
+    if (allier.countBouclier != 0) {
+        allier.countBouclier -= 1;
+    } else if (allier.countBouclier === 0) {
+        allier.bouclier = false;
     }
 }
 
@@ -160,17 +174,16 @@ useChasseur.addEventListener("click", function() {
     allier.chasseur -= 1;
 });
 
-function degaChasseur(lequel) {
-    if (lequel === true) {
-        ennemie.pv -= Math.trunc((Math.random() * 7) + 3);
-    }
-}
-
 piuAllierEvent.addEventListener("animationend", function() {
-    message = messages.dammageEnnemie;
     allier.plasma = false;
     chasseur.tire = false;
-    ennemie.pv -= Math.trunc((Math.random() * 10) + 10);
+    let j = Math.random();
+    if (j >= 0.9) {
+        message = messages.rate;
+    } else {
+        ennemie.pv -= Math.trunc((Math.random() * 10) + 10);
+        message = messages.dammageEnnemie;
+    }
     degaChasseur(chasseur.c1);
     degaChasseur(chasseur.c2);
     degaChasseur(chasseur.c3);
@@ -228,24 +241,23 @@ boumAllier.addEventListener("animationend", function() {
         perdu = true;
     } else {
         enable();
+        verifieBouclier();
     }
-    if (allier.countBouclier != 0) {
-        allier.countBouclier -= 1;
-    } else if (allier.countBouclier === 0) {
-        allier.bouclier = false;
-    }
-
 });
 
 ennergie.addEventListener("animationend", function() {
     allier.energie = false;
-    ennemie.stun = true;
-    ennemie.countStun = 2;
-    enable();
-    if (allier.countBouclier != 0) {
-        allier.countBouclier -= 1;
-    } else if (allier.countBouclier === 0) {
-        allier.bouclier = false;
+    let j = Math.random();
+    if (j >= 0.8) {
+        message = messages.rate;
+        ennemie.piu = true;
+        ennemie.countStun = 1;
+    } else {
+        ennemie.stun = true;
+        ennemie.countStun = 2;
+        message = messages.ennergieEnnemie;
+        enable();
+        verifieBouclier();
     }
 });
 
@@ -294,9 +306,9 @@ function verifieAffiche(bolean, element) {
 setInterval(function() {
 
     pvAllier.style.width = allier.pv + "px";
-    pvAllier.textContent = allier.pv;
+    nbpvAllier.textContent = allier.pv;
     pvEnnemie.style.width = ennemie.pv + "px";
-    pvEnnemie.textContent = ennemie.pv;
+    nbpvEnnemie.textContent = ennemie.pv;
     amiral.textContent = message;
     chasseurRestant.textContent = allier.chasseur;
 
@@ -320,14 +332,11 @@ setInterval(function() {
     }
 
     if (allier.energie === true) {
-        body.className = "backEnnergie";
+        jeu.className = "backEnnergie";
     } else if (allier.energie === false) {
-        body.className = "";
+        jeu.className = "";
     }
 
-    if (allier.chasseur === 0) {
-        useChasseur.disabled = true;
-    }
     if (chasseur.c1 === true && chasseur.tire === true) {
         piuChasseur1.style.display = "block";
     } else if (chasseur.tire === false) {
