@@ -42,6 +42,14 @@ let bouclier = document.querySelector("#bouclier")
 let ennergie = document.querySelector("#ennergie");
 let stun = document.querySelector("#stun");
 
+let destructionEnnemie = document.querySelector("#destructionEnnemie");
+let destructionAllier = document.querySelector("#destructionAllier");
+let boum1 = document.querySelector("#boum1");
+let boum2 = document.querySelector("#boum2");
+let boum3 = document.querySelector("#boum3");
+let boum4 = document.querySelector("#boum4");
+let boum5 = document.querySelector("#boum5");
+
 //-----------M--------------//
 
 let gagne = false;
@@ -64,6 +72,7 @@ let ennemie = {
     countStun: 0,
     boum: false,
     boumC: false,
+    disableBoum: false
 }
 
 let chasseur = {
@@ -205,10 +214,13 @@ piuAllierEvent.addEventListener("animationend", function() {
         ennemie.pv = 0;
     }
     ennemie.boum = true;
+    ennemie.boumC = true;
 });
 
 boumEnnemie.addEventListener("animationend", function() {
     ennemie.boum = false;
+    ennemie.boumC = false;
+    ennemie.disableBoum = false;
     if (ennemie.pv === 0) {
         ennemie.piu = false;
         message = messages.gagne;
@@ -281,6 +293,8 @@ bouclier.addEventListener("animationend", function() {
     }
     if (chasseur.c1 === true || chasseur.c2 === true || chasseur.c3 === true || chasseur.c4 === true) {
         ennemie.boum = true;
+        ennemie.boumC = true;
+        ennemie.disableBoum = true;
         degaChasseur(chasseur.c1);
         degaChasseur(chasseur.c2);
         degaChasseur(chasseur.c3);
@@ -316,6 +330,14 @@ function verifieAffiche(bolean, element) {
     }
 }
 
+function verifieAfficheDouble(bolean1, bolean2, element) {
+    if (bolean1 === true && bolean2 === true) {
+        element.style.display = "block";
+    } else if (bolean2 === false) {
+        element.style.display = "none";
+    }
+}
+
 setInterval(function() {
 
     pvAllier.style.width = allier.pv + "px";
@@ -326,7 +348,6 @@ setInterval(function() {
     chasseurRestant.textContent = allier.chasseur;
 
     verifieAffiche(allier.plasma, piuAllier);
-
     verifieAffiche(ennemie.piu, piuEnnemie);
     verifieAffiche(allier.boum, boumAllier);
     verifieAffiche(chasseur.c1, chasseur1);
@@ -337,7 +358,19 @@ setInterval(function() {
     verifieAffiche(allier.energie, ennergie);
     verifieAffiche(ennemie.stun, stun);
 
-    if (ennemie.boum === true && bouclier) {
+    verifieAfficheDouble(chasseur.c1, chasseur.tire, piuChasseur1);
+    verifieAfficheDouble(chasseur.c2, chasseur.tire, piuChasseur2);
+    verifieAfficheDouble(chasseur.c3, chasseur.tire, piuChasseur3);
+    verifieAfficheDouble(chasseur.c4, chasseur.tire, piuChasseur4);
+    verifieAfficheDouble(chasseur.c1, ennemie.boum, boumEnnemieC1);
+    verifieAfficheDouble(chasseur.c2, ennemie.boum, boumEnnemieC2);
+    verifieAfficheDouble(chasseur.c3, ennemie.boum, boumEnnemieC3);
+    verifieAfficheDouble(chasseur.c4, ennemie.boum, boumEnnemieC4);
+
+    if (ennemie.boum === true && ennemie.disableBoum === true) {
+        boumEnnemie.style.display = "block";
+        boumEnnemie.style.visibility = "hidden";
+    } else if (ennemie.boum === true) {
         boumEnnemie.style.display = "block";
     } else if (ennemie.boum === false) {
         boumEnnemie.style.display = "none";
@@ -356,48 +389,6 @@ setInterval(function() {
         jeu.className = "";
     }
 
-    if (chasseur.c1 === true && chasseur.tire === true) {
-        piuChasseur1.style.display = "block";
-    } else if (chasseur.tire === false) {
-        piuChasseur1.style.display = "none";
-    }
-    if (chasseur.c2 === true && chasseur.tire === true) {
-        piuChasseur2.style.display = "block";
-    } else if (chasseur.tire === false) {
-        piuChasseur2.style.display = "none";
-    }
-    if (chasseur.c3 === true && chasseur.tire === true) {
-        piuChasseur3.style.display = "block";
-    } else if (chasseur.tire === false) {
-        piuChasseur3.style.display = "none";
-    }
-    if (chasseur.c4 === true && chasseur.tire === true) {
-        piuChasseur4.style.display = "block";
-    } else if (chasseur.tire === false) {
-        piuChasseur4.style.display = "none";
-    }
-
-
-    if (chasseur.c1 === true && ennemie.boum === true) {
-        boumEnnemieC1.style.display = "block";
-    } else if (ennemie.boum === false) {
-        boumEnnemieC1.style.display = "none";
-    }
-    if (chasseur.c2 === true && ennemie.boum === true) {
-        boumEnnemieC2.style.display = "block";
-    } else if (ennemie.boum === false) {
-        boumEnnemieC2.style.display = "none";
-    }
-    if (chasseur.c3 === true && ennemie.boum === true) {
-        boumEnnemieC3.style.display = "block";
-    } else if (ennemie.boum === false) {
-        boumEnnemieC3.style.display = "none";
-    }
-    if (chasseur.c4 === true && ennemie.boum === true) {
-        boumEnnemieC4.style.display = "block";
-    } else if (ennemie.boum === false) {
-        boumEnnemieC4.style.display = "none";
-    }
 
     if (gagne === true) {
         final.textContent = "You Win";
@@ -405,6 +396,22 @@ setInterval(function() {
     } else if (perdu === true) {
         final.textContent = "Game Over";
         final.style.display = "block";
+        destructionAllier.style.display = "block";
+        boum1.style.display = "block";
+        vAllier.className = "disparition";
+        setTimeout(function() {
+            boum2.style.display = "block";
+        }, 800);
+        setTimeout(function() {
+            boum3.style.display = "block";
+        }, 400);
+        setTimeout(function() {
+            boum4.style.display = "block";
+        }, 200);
+        setTimeout(function() {
+            boum5.style.display = "block";
+        }, 600);
+
     }
 
 }, 1);

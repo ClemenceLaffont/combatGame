@@ -284,6 +284,15 @@ h1 {
     }
 }
 
+@keyframes disparition {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 @keyframes ennergie {
     0% {
         opacity: 0;
@@ -496,7 +505,7 @@ h1 {
     display: none;
 }
 
-.boumE {
+.boum {
     background-image: url(boum.png);
     position: absolute;
     width: 100px;
@@ -538,17 +547,9 @@ h1 {
 }
 
 #boumAllier {
-    background-image: url(boum.png);
-    position: absolute;
-    width: 100px;
-    height: 100px;
     left: 130px;
     top: 95px;
-    background-size: 600px;
-    opacity: 0;
-    animation: grosBoum step-end 1s;
     display: none;
-    z-index: 4;
 }
 
 #bouclier {
@@ -596,4 +597,101 @@ h1 {
     animation: stun 2s step-end infinite;
     display: none;
     z-index: 4;
+}
+
+#destructionAllier {
+    display: none;
+}
+
+#destructionEnnemie {
+    display: none;
+}
+
+#boum1 {
+    left: 130px;
+    top: 95px;
+    display: none;
+}
+
+#boum2 {
+    left: 40px;
+    top: 95px;
+    display: none;
+}
+
+#boum3 {
+    left: 85px;
+    top: 95px;
+    display: none;
+}
+
+#boum4 {
+    left: 85px;
+    top: 130px;
+    display: none;
+}
+
+#boum5 {
+    left: 85px;
+    top: 50px;
+    display: none;
+}
+
+#boum6 {
+    left: 930px;
+    top: 80px;
+    display: none;
+}
+
+#boum7 {
+    left: 960px;
+    top: 110px;
+    display: none;
+}
+
+#boum8 {
+    left: 990px;
+    top: 80px;
+    display: none;
+}
+
+#boum9 {
+    left: 1020px;
+    top: 110px;
+    display: none;
+}
+
+#boum10 {
+    left: 1050px;
+    top: 80px;
+    display: none;
+}
+
+#boum11 {
+    left: 900px;
+    top: 50px;
+    display: none;
+}
+
+#boum12 {
+    left: 900px;
+    top: 140px;
+    display: none;
+}
+
+#boum13 {
+    left: 990px;
+    top: 50px;
+    display: none;
+}
+
+#boum14 {
+    left: 990px;
+    top: 140px;
+    display: none;
+}
+
+.disparition {
+    animation: disparition 1.2s ease;
+    opacity: 0;
 }
