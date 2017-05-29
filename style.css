@@ -496,18 +496,45 @@ h1 {
     display: none;
 }
 
-#boumEnnemie {
+.boumE {
     background-image: url(boum.png);
     position: absolute;
     width: 100px;
     height: 100px;
-    left: 930px;
-    top: 95px;
     background-size: 600px;
     opacity: 0;
     animation: grosBoum step-end 1.5s;
-    display: none;
     z-index: 4;
+}
+
+#boumEnnemie {
+    left: 930px;
+    top: 95px;
+    display: none;
+}
+
+#boumEnnemieC1 {
+    left: 1000px;
+    top: 5px;
+    display: none;
+}
+
+#boumEnnemieC2 {
+    left: 1000px;
+    top: 165px;
+    display: none;
+}
+
+#boumEnnemieC3 {
+    left: 900px;
+    top: 55px;
+    display: none;
+}
+
+#boumEnnemieC4 {
+    left: 900px;
+    top: 125px;
+    display: none;
 }
 
 #boumAllier {

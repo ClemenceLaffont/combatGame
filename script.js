@@ -32,6 +32,10 @@ let piuChasseur4 = document.querySelector("#piuChasseur4");
 
 let boumEnnemie = document.querySelector("#boumEnnemie");
 let boumAllier = document.querySelector("#boumAllier");
+let boumEnnemieC1 = document.querySelector("#boumEnnemieC1");
+let boumEnnemieC2 = document.querySelector("#boumEnnemieC2");
+let boumEnnemiec3 = document.querySelector("#boumEnnemieC3");
+let boumEnnemiec4 = document.querySelector("#boumEnnemieC4");
 
 let bouclier = document.querySelector("#bouclier")
 
@@ -49,7 +53,7 @@ let allier = {
     energie: false,
     bouclier: false,
     countBouclier: 0,
-    chasseur: 4,
+    chasseur: 10,
     boum: false,
 }
 
@@ -59,6 +63,7 @@ let ennemie = {
     stun: false,
     countStun: 0,
     boum: false,
+    boumC: false,
 }
 
 let chasseur = {
@@ -95,7 +100,11 @@ function enable() {
     if (allier.bouclier === false) {
         useBouclier.disabled = false;
     }
-    if (allier.chasseur != 0) {
+    if (allier.chasseur === 0) {
+        useChasseur.disabled = true;
+    } else if (chasseur.c1 === true && chasseur.c2 === true && chasseur.c3 === true && chasseur.c4 === true) {
+        useChasseur.disabled = true;
+    } else {
         useChasseur.disabled = false;
     }
     if (ennemie.stun === false && ennemie.countStun === 0) {
@@ -127,7 +136,11 @@ function tourEnnemie() {
 function degaChasseur(lequel) {
     if (lequel === true) {
         ennemie.pv -= Math.trunc((Math.random() * 7) + 3);
+        if (ennemie.pv <= 0) {
+            ennemie.pv = 0;
+        }
     }
+
 }
 
 function verifieBouclier() {
@@ -313,7 +326,7 @@ setInterval(function() {
     chasseurRestant.textContent = allier.chasseur;
 
     verifieAffiche(allier.plasma, piuAllier);
-    verifieAffiche(ennemie.boum, boumEnnemie);
+
     verifieAffiche(ennemie.piu, piuEnnemie);
     verifieAffiche(allier.boum, boumAllier);
     verifieAffiche(chasseur.c1, chasseur1);
@@ -323,6 +336,12 @@ setInterval(function() {
     verifieAffiche(allier.bouclier, bouclier);
     verifieAffiche(allier.energie, ennergie);
     verifieAffiche(ennemie.stun, stun);
+
+    if (ennemie.boum === true && bouclier) {
+        boumEnnemie.style.display = "block";
+    } else if (ennemie.boum === false) {
+        boumEnnemie.style.display = "none";
+    }
 
     if (allier.boum === false) {
         boumAllier.style.left = "130px"
@@ -356,6 +375,28 @@ setInterval(function() {
         piuChasseur4.style.display = "block";
     } else if (chasseur.tire === false) {
         piuChasseur4.style.display = "none";
+    }
+
+
+    if (chasseur.c1 === true && ennemie.boum === true) {
+        boumEnnemieC1.style.display = "block";
+    } else if (ennemie.boum === false) {
+        boumEnnemieC1.style.display = "none";
+    }
+    if (chasseur.c2 === true && ennemie.boum === true) {
+        boumEnnemieC2.style.display = "block";
+    } else if (ennemie.boum === false) {
+        boumEnnemieC2.style.display = "none";
+    }
+    if (chasseur.c3 === true && ennemie.boum === true) {
+        boumEnnemieC3.style.display = "block";
+    } else if (ennemie.boum === false) {
+        boumEnnemieC3.style.display = "none";
+    }
+    if (chasseur.c4 === true && ennemie.boum === true) {
+        boumEnnemieC4.style.display = "block";
+    } else if (ennemie.boum === false) {
+        boumEnnemieC4.style.display = "none";
     }
 
     if (gagne === true) {
