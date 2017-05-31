@@ -49,6 +49,15 @@ let boum2 = document.querySelector("#boum2");
 let boum3 = document.querySelector("#boum3");
 let boum4 = document.querySelector("#boum4");
 let boum5 = document.querySelector("#boum5");
+let boum6 = document.querySelector("#boum6");
+let boum7 = document.querySelector("#boum7");
+let boum8 = document.querySelector("#boum8");
+let boum9 = document.querySelector("#boum9");
+let boum10 = document.querySelector("#boum10");
+let boum11 = document.querySelector("#boum11");
+let boum12 = document.querySelector("#boum12");
+let boum13 = document.querySelector("#boum13");
+let boum14 = document.querySelector("#boum14");
 
 //-----------M--------------//
 
@@ -109,6 +118,11 @@ function enable() {
     if (allier.bouclier === false) {
         useBouclier.disabled = false;
     }
+    if (allier.countBouclier != 0) {
+        allier.countBouclier -= 1;
+    } else if (allier.countBouclier === 0) {
+        allier.bouclier = false;
+    }
     if (allier.chasseur === 0) {
         useChasseur.disabled = true;
     } else if (chasseur.c1 === true && chasseur.c2 === true && chasseur.c3 === true && chasseur.c4 === true) {
@@ -137,7 +151,6 @@ function tourEnnemie() {
         message = messages.attacEnnemie;
     } else {
         message = messages.ennemieCantPlay;
-        verifieBouclier();
         enable();
     }
 }
@@ -150,14 +163,6 @@ function degaChasseur(lequel) {
         }
     }
 
-}
-
-function verifieBouclier() {
-    if (allier.countBouclier != 0) {
-        allier.countBouclier -= 1;
-    } else if (allier.countBouclier === 0) {
-        allier.bouclier = false;
-    }
 }
 
 usePlasma.addEventListener("click", function() {
@@ -203,7 +208,7 @@ piuAllierEvent.addEventListener("animationend", function() {
     if (j >= 0.9) {
         message = messages.rate;
     } else {
-        ennemie.pv -= Math.trunc((Math.random() * 10) + 10);
+        ennemie.pv -= Math.trunc((Math.random() * 10) + 100);
         message = messages.dammageEnnemie;
     }
     degaChasseur(chasseur.c1);
@@ -266,7 +271,6 @@ boumAllier.addEventListener("animationend", function() {
         perdu = true;
     } else {
         enable();
-        verifieBouclier();
     }
 });
 
@@ -282,7 +286,6 @@ ennergie.addEventListener("animationend", function() {
         ennemie.countStun = 2;
         message = messages.ennergieEnnemie;
         enable();
-        verifieBouclier();
     }
 });
 
@@ -393,6 +396,33 @@ setInterval(function() {
     if (gagne === true) {
         final.textContent = "You Win";
         final.style.display = "block";
+        destructionEnnemie.style.display = "block";
+        boum6.style.display = "block";
+        vEnnemie.className = "disparition";
+        setTimeout(function() {
+            boum7.style.display = "block";
+        }, 800);
+        setTimeout(function() {
+            boum8.style.display = "block";
+        }, 700);
+        setTimeout(function() {
+            boum9.style.display = "block";
+        }, 100);
+        setTimeout(function() {
+            boum10.style.display = "block";
+        }, 300);
+        setTimeout(function() {
+            boum11.style.display = "block";
+        }, 600);
+        setTimeout(function() {
+            boum12.style.display = "block";
+        }, 200);
+        setTimeout(function() {
+            boum13.style.display = "block";
+        }, 400);
+        setTimeout(function() {
+            boum14.style.display = "block";
+        }, 500);
     } else if (perdu === true) {
         final.textContent = "Game Over";
         final.style.display = "block";
